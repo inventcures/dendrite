@@ -1,0 +1,16 @@
+{
+  "entity_types": [
+    "person",
+    "organization",
+    "tool/technology",
+    "scientific_concept",
+    "disease",
+    "drug/molecule",
+    "idea"
+  ],
+  "gliner_model": "fastino/gliner2-base-v1",
+  "gliner_threshold": 0.4,
+  "auto_rebuild": true,
+  "debounce_seconds": 5,
+  "visualization_max_nodes": 50
+}

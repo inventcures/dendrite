@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+knowledge-graph.json
+knowledge-graph-summary.md
+dendrite.html
+*.log
+.kg-debounce/
+.DS_Store
