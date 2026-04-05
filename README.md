@@ -8,18 +8,44 @@ Named after the branching structures of neurons — because knowledge, like dend
 
 ## What it does
 
-dendrite gives Claude Code 11 slash commands that turn it into a compounding knowledge companion:
+dendrite gives Claude Code 20 slash commands that turn it into a compounding knowledge companion:
 
+### Capture
 | Command | Purpose |
 |---------|---------|
 | `/journal` | Capture learnings, decisions, patterns, and mistakes to a daily log |
 | `/idea` | Quick-capture an idea to the inbox |
 | `/ideas` | List and manage ideas through a kanban-style pipeline |
-| `/recall` | Search across wiki, journal, KG, and raw sources (wiki-first) |
+| `/ingest` | Batch-ingest tweets or articles into the knowledge system |
+
+### Knowledge
+| Command | Purpose |
+|---------|---------|
 | `/kg` | Build, query, and visualize a knowledge graph from your entries |
 | `/wiki` | Build, query, and edit the LLM-maintained wiki knowledge layer |
-| `/ingest` | Batch-ingest tweets or articles into the knowledge system |
+| `/recall` | Search across wiki, journal, KG, and raw sources (wiki-first) |
 | `/lint` | Health-check the wiki for staleness, orphans, and contradictions |
+
+### Thinking
+| Command | Purpose |
+|---------|---------|
+| `/discover` | Surface hidden connections, contradictions, and gaps |
+| `/sparks` | Quick rapid-fire one-liner insights from recent entries |
+| `/threads` | Trace a theme across all sources chronologically |
+| `/nexus` | Find bridge entities connecting separate clusters |
+| `/prism` | Reframe an entity or topic from multiple angles |
+| `/distill` | Compress a topic into a tight briefing |
+| `/dream` | Speculative pattern completion — hypothesize unseen connections |
+
+### Maintenance
+| Command | Purpose |
+|---------|---------|
+| `/sleep` | End-of-session consolidation — merge, promote, flag stale |
+| `/compost` | Prune weak entities, archive stale pages, compact the KG |
+
+### Content
+| Command | Purpose |
+|---------|---------|
 | `/blog-review` | Review blog post drafts for clarity, structure, and voice |
 | `/review-linkedin` | Review LinkedIn posts for engagement and formatting |
 | `/intro` | Generate context-aware self-introductions |
