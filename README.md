@@ -1,5 +1,7 @@
 # dendrite
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/inventcures/dendrite)
+
 A CLI-first personal knowledge system for [Claude Code](https://claude.ai/code) — journal capture, ideas pipeline, knowledge graph with NER, and content review.
 
 Named after the branching structures of neurons — because knowledge, like dendrites, grows by forming new connections.
