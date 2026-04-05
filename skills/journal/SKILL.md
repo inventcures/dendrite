@@ -15,6 +15,7 @@ description: Capture a learning, decision, pattern, or mistake to the daily jour
 8. Fill in all fields for the entry type from the schema.
 9. Ask the user for tags if not obvious from context. Use inline `#hashtag` format.
 10. Confirm what was written with the file path.
+11. **Wiki staleness:** If `~/.claude/wiki/entities/` exists, check if any entities mentioned in the new entry have wiki pages. If so, note which wiki pages may need updating (e.g., "Wiki pages that may be stale: stanford.md, gpt-5.md"). Do not update them now — defer to `/wiki edit` or `/lint`.
 
 ## Tools
 

@@ -12,5 +12,8 @@
   "gliner_threshold": 0.4,
   "auto_rebuild": true,
   "debounce_seconds": 5,
-  "visualization_max_nodes": 50
+  "visualization_max_nodes": 50,
+  "wiki_entity_threshold": 2,
+  "wiki_stale_days": 7,
+  "tweet_fetch_delay_ms": 1000
 }

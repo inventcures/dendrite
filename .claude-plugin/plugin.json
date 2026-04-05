@@ -1,7 +1,7 @@
 {
   "name": "dendrite",
-  "description": "A CLI-first personal knowledge system for Claude Code — journal capture, ideas pipeline, knowledge graph with NER, and content review",
-  "version": "0.1.0",
+  "description": "A CLI-first personal knowledge system for Claude Code — journal, wiki, knowledge graph, tweet ingestion, and content review",
+  "version": "0.2.0",
   "author": {
     "name": "inventcures"
   },

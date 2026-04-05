@@ -15,3 +15,5 @@ dendrite.html
 *.log
 .kg-debounce/
 .DS_Store
+index.md
+log.md

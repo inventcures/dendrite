@@ -26,6 +26,7 @@ from typing import NamedTuple, Optional
 CLAUDE_HOME = Path(os.getenv("CLAUDE_HOME", Path.home() / ".claude"))
 JOURNAL_DIR = CLAUDE_HOME / "journal"
 IDEAS_DIR = CLAUDE_HOME / "ideas"
+SOURCES_RAW_DIR = CLAUDE_HOME / "sources" / "raw"
 GRAPH_FILE = JOURNAL_DIR / "knowledge-graph.json"
 SUMMARY_FILE = JOURNAL_DIR / "knowledge-graph-summary.md"
 LOCK_FILE = JOURNAL_DIR / ".knowledge-graph.lock"
@@ -55,6 +56,7 @@ ENTITY_TYPES = _CONFIG.get("entity_types", [
 
 JOURNAL_EXCLUDE = {"SCHEMA.md", "index.md", "knowledge-graph-summary.md"}
 IDEAS_EXCLUDE = {"PIPELINE.md", ".gitkeep"}
+SOURCES_EXCLUDE = {"tweets.md"}
 
 ENTRY_RE = re.compile(r"^###\s+(\d{2}:\d{2})\s+\|\s+(?:\[(\w+)\]\s+)?(.+)$")
 TAG_RE = re.compile(r"#([\w-]+)")
@@ -169,12 +171,45 @@ def parse_idea_file(filepath: Path) -> list:
     )]
 
 
+def parse_source_file(filepath: Path) -> list:
+    text = filepath.read_text(encoding="utf-8")
+
+    title = filepath.stem
+    date = datetime.now().strftime("%Y-%m-%d")
+
+    body = text
+    if text.startswith("---"):
+        end = text.find("---", 3)
+        if end != -1:
+            frontmatter = text[3:end]
+            body = text[end + 3:].strip()
+            for line in frontmatter.split("\n"):
+                if line.startswith("date:"):
+                    date = line.split(":", 1)[1].strip().strip('"')
+                elif line.startswith("author_name:"):
+                    title = line.split(":", 1)[1].strip().strip('"') + " — " + title
+
+    tags = TAG_RE.findall(body)
+
+    return [JournalEntry(
+        date=date,
+        time="00:00",
+        category="source",
+        title=title,
+        body=body,
+        tags=tags,
+        source_file=str(filepath),
+    )]
+
+
 def parse_single_file(filepath: Path) -> list:
     fp = str(filepath.resolve())
     if fp.startswith(str(JOURNAL_DIR)):
         return parse_journal_file(filepath)
     elif fp.startswith(str(IDEAS_DIR)):
         return parse_idea_file(filepath)
+    elif fp.startswith(str(SOURCES_RAW_DIR)):
+        return parse_source_file(filepath)
     return []
 
 
@@ -187,6 +222,11 @@ def parse_all_journals() -> list:
             if md_file.name in IDEAS_EXCLUDE:
                 continue
             all_entries.extend(parse_idea_file(md_file))
+    if SOURCES_RAW_DIR.exists():
+        for md_file in sorted(SOURCES_RAW_DIR.rglob("*.md")):
+            if md_file.name in SOURCES_EXCLUDE:
+                continue
+            all_entries.extend(parse_source_file(md_file))
     return all_entries
 
 

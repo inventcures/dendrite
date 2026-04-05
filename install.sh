@@ -10,14 +10,25 @@ mkdir -p "$CLAUDE_HOME/journal"
 mkdir -p "$CLAUDE_HOME/ideas"/{inbox,developing,parked,done}
 mkdir -p "$CLAUDE_HOME/personal"
 mkdir -p "$CLAUDE_HOME/hooks"
+mkdir -p "$CLAUDE_HOME/wiki/entities"
+mkdir -p "$CLAUDE_HOME/wiki/topics"
+mkdir -p "$CLAUDE_HOME/wiki/synthesis"
+mkdir -p "$CLAUDE_HOME/sources/raw"
 
-for template in journal/SCHEMA.md ideas/PIPELINE.md personal/bio.md personal/writing-style.md; do
-  dest="$CLAUDE_HOME/$template"
+for template in journal/SCHEMA.md ideas/PIPELINE.md personal/bio.md personal/writing-style.md wiki/WIKI_SCHEMA.md sources/tweets-inbox.md; do
+  base=$(basename "$template")
+  dir=$(dirname "$template")
+  if [ "$base" = "tweets-inbox.md" ]; then
+    dest="$CLAUDE_HOME/sources/tweets.md"
+  else
+    dest="$CLAUDE_HOME/$template"
+  fi
+  mkdir -p "$(dirname "$dest")"
   if [ ! -f "$dest" ]; then
     cp "$REPO_DIR/templates/$template" "$dest"
-    echo "  Created $template"
+    echo "  Created $(basename "$dest")"
   else
-    echo "  Skipped $template (already exists)"
+    echo "  Skipped $(basename "$dest") (already exists)"
   fi
 done
 
@@ -49,8 +60,11 @@ echo "Available commands:"
 echo "  /journal  — capture learnings, decisions, patterns, mistakes"
 echo "  /idea     — quick-capture an idea"
 echo "  /ideas    — manage ideas pipeline"
-echo "  /recall   — search past learnings"
+echo "  /recall   — search past learnings (wiki-first)"
 echo "  /kg       — build/query/visualize knowledge graph"
+echo "  /wiki     — build/query/edit the wiki knowledge layer"
+echo "  /ingest   — batch-ingest tweets or articles"
+echo "  /lint     — health-check the wiki"
 echo "  /blog-review    — review blog drafts"
 echo "  /review-linkedin — review LinkedIn posts"
 echo "  /intro    — generate context-aware introductions"

@@ -17,6 +17,7 @@ from pathlib import Path
 CLAUDE_HOME = Path(os.getenv("CLAUDE_HOME", Path.home() / ".claude"))
 JOURNAL_DIR = str(CLAUDE_HOME / "journal")
 IDEAS_DIR = str(CLAUDE_HOME / "ideas")
+SOURCES_DIR = str(CLAUDE_HOME / "sources")
 SCRIPT_DIR = Path(__file__).resolve().parent
 SCRIPT = str(SCRIPT_DIR / "build-knowledge-graph.py")
 LOG_FILE = str(SCRIPT_DIR / "kg-updater.log")
@@ -25,6 +26,7 @@ DEBOUNCE_DIR = SCRIPT_DIR / ".kg-debounce"
 EXCLUDE_FILES = {
     "SCHEMA.md", "index.md", "PIPELINE.md",
     "knowledge-graph-summary.md", "knowledge-graph.json",
+    "WIKI_SCHEMA.md", "log.md", "tweets.md",
     ".gitkeep",
 }
 
@@ -63,7 +65,12 @@ def should_update(file_path: str) -> bool:
     basename = os.path.basename(file_path)
     if basename in EXCLUDE_FILES:
         return False
-    return file_path.startswith(JOURNAL_DIR) or file_path.startswith(IDEAS_DIR)
+    wiki_dir = str(CLAUDE_HOME / "wiki")
+    if file_path.startswith(wiki_dir):
+        return False
+    return (file_path.startswith(JOURNAL_DIR)
+            or file_path.startswith(IDEAS_DIR)
+            or file_path.startswith(SOURCES_DIR))
 
 
 def is_debounced(file_path: str, window: int = 5) -> bool:

@@ -7,7 +7,7 @@ echo "Uninstalling dendrite from $CLAUDE_HOME ..."
 echo "(Journal, ideas, and personal data are NEVER removed)"
 echo ""
 
-for skill in journal idea ideas recall kg blog-review review-linkedin intro; do
+for skill in journal idea ideas recall kg wiki ingest lint blog-review review-linkedin intro; do
   if [ -d "$CLAUDE_HOME/skills/$skill" ]; then
     rm -rf "$CLAUDE_HOME/skills/$skill"
     echo "  Removed skill: /$skill"
@@ -28,4 +28,4 @@ fi
 
 echo ""
 echo "Done! Skills and hooks removed."
-echo "Your data is safe: journal/, ideas/, and personal/ were not touched."
+echo "Your data is safe: journal/, ideas/, personal/, wiki/, and sources/ were not touched."
